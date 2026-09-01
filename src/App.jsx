@@ -9,9 +9,10 @@ function AppContent() {
 
   return (
     <div>
-      <p>Welcome, {user.username} ({user.role})</p>
-      <button onClick={logout}>Sign out</button>
-    </div>
+    <p>Welcome, {user.username} ({user.role})</p>
+    <button onClick={logout}>Sign out</button>
+    <ItemList />
+  </div>
   );
 }
 
