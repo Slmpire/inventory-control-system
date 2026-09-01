@@ -1,21 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { AuthProvider, useAuth } from './context/AuthContext';
-import LoginForm from './components/auth/LoginForm';
-import ItemList from './components/items/ItemList';
-import TransactionForm from './components/transactions/TransactionForm';
-import ReorderAlerts from './components/dashboard/ReorderAlerts';
+import Layout from './components/layout/Layout';
+import LoginPage from './pages/LoginPage';
+import DashboardPage from './pages/DashboardPage';
+import ItemsPage from './pages/ItemsPage';
+import TransactionsPage from './pages/TransactionsPage';
+import ReportsPage from './pages/ReportsPage';
+import UsersPage from './pages/UsersPage';
 
 function AppContent() {
-  const { user, logout } = useAuth();
+  const { user } = useAuth();
+  const [page, setPage] = useState('dashboard');
 
-  if (!user) return <LoginForm />;
+  if (!user) return <LoginPage />;
+
+  const pages = {
+    dashboard: <DashboardPage />,
+    items: <ItemsPage />,
+    transactions: <TransactionsPage />,
+    reports: <ReportsPage />,
+    users: <UsersPage />,
+  };
 
   return (
-    <div>
-    <p>Welcome, {user.username} ({user.role})</p>
-    <button onClick={logout}>Sign out</button>
-    <ItemList />
-  </div>
+    <Layout currentPage={page} onNavigate={setPage}>
+      {pages[page]}
+    </Layout>
   );
 }
 
@@ -23,9 +33,6 @@ export default function App() {
   return (
     <AuthProvider>
       <AppContent />
-      <ReorderAlerts />
-<ItemList />
-<TransactionForm onRecorded={() => window.location.reload()} />
     </AuthProvider>
   );
 }
