@@ -3,6 +3,7 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import LoginForm from './components/auth/LoginForm';
 import ItemList from './components/items/ItemList';
 import TransactionForm from './components/transactions/TransactionForm';
+import ReorderAlerts from './components/dashboard/ReorderAlerts';
 
 function AppContent() {
   const { user, logout } = useAuth();
@@ -22,7 +23,9 @@ export default function App() {
   return (
     <AuthProvider>
       <AppContent />
-      <TransactionForm onRecorded={() => window.location.reload()} />
+      <ReorderAlerts />
+<ItemList />
+<TransactionForm onRecorded={() => window.location.reload()} />
     </AuthProvider>
   );
 }
