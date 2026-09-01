@@ -22,11 +22,16 @@ export default function TransactionForm({ onRecorded }) {
       setError('Select an item and enter a valid quantity.');
       return;
     }
+    const selectedItem = items.find((i) => i.item_id === Number(item_id));
+
+    // NEW: block a sale that would exceed available stock
+    if (type === 'Sale' && Number(quantity) > selectedItem.quantity) {
+      setError(`Only ${selectedItem.quantity} units of "${selectedItem.item_name}" are in stock. Reduce the quantity.`);
+      return;
+    }
 
     setSaving(true);
     setError('');
-
-    const selectedItem = items.find((i) => i.item_id === Number(item_id));
 
     // Record the transaction
     const { error: txError } = await supabase.from('transactions').insert({
