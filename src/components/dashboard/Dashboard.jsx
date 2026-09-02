@@ -63,9 +63,9 @@ export default function Dashboard() {
 
 function StatCard({ label, value }) {
   return (
-    <div style={{ background: '#f5f5f5', borderRadius: 8, padding: '12px 16px', minWidth: 140 }}>
-      <p style={{ fontSize: 13, color: '#666', margin: '0 0 4px' }}>{label}</p>
-      <p style={{ fontSize: 22, fontWeight: 600, margin: 0 }}>{value}</p>
+    <div className="card">
+      <p className="stat-label">{label}</p>
+      <p className="stat-value">{value}</p>
     </div>
   );
 }
