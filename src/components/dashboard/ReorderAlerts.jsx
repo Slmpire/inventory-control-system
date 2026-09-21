@@ -7,11 +7,8 @@ export default function ReorderAlerts() {
 
   const fetchLowStock = useCallback(async () => {
     setLoading(true);
-    // Supabase can't compare two columns directly in a filter,
-    // so we fetch all items and filter on the client side.
     const { data } = await supabase.from('stock_items').select('*');
-    const flagged = (data || []).filter((i) => i.quantity <= i.reorder_level);
-    setLowStockItems(flagged);
+    setLowStockItems((data || []).filter((i) => i.quantity <= i.reorder_level));
     setLoading(false);
   }, []);
 
@@ -19,17 +16,17 @@ export default function ReorderAlerts() {
     fetchLowStock();
   }, [fetchLowStock]);
 
-  if (loading) return <p>Checking stock levels...</p>;
+  if (loading) return null;
 
   if (lowStockItems.length === 0) {
-    return <p style={{ color: 'green' }}>No items currently need re-ordering.</p>;
+    return <p className="alert-success" style={{ marginBottom: 20 }}>No items currently need re-ordering.</p>;
   }
 
   return (
-    <div>
+    <div style={{ marginBottom: 20 }}>
       <h3>Re-order alerts ({lowStockItems.length})</h3>
       {lowStockItems.map((i) => (
-        <div key={i.item_id} style={{ background: '#fee', padding: '8px 12px', marginBottom: 6, borderRadius: 6 }}>
+        <div key={i.item_id} className="alert-danger">
           <strong>{i.item_name}</strong> is at {i.quantity} units — at or below its re-order level of {i.reorder_level}.
         </div>
       ))}
