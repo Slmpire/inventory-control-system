@@ -20,9 +20,9 @@ export default function LowStockReport() {
           <tbody>
             {lowStockItems.map((i) => (
               <tr key={i.item_id}>
-                <td>{i.item_name}</td>
-                <td>{i.quantity}</td>
-                <td>{i.reorder_level}</td>
+                <td className="low-stock" >{i.item_name}</td>
+                <td className="low-stock">{i.quantity}</td>
+                <td className="low-stock">{i.reorder_level}</td>
               </tr>
             ))}
           </tbody>

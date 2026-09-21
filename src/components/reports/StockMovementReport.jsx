@@ -22,10 +22,10 @@ export default function StockMovementReport() {
         <tbody>
           {transactions.map((t) => (
             <tr key={t.transaction_id}>
-              <td>{t.stock_items?.item_name}</td>
-              <td>{t.type}</td>
-              <td>{t.quantity}</td>
-              <td>{t.transaction_date}</td>
+              <td className="low-stock" >{t.stock_items?.item_name}</td>
+              <td className="low-stock">{t.type}</td>
+              <td className="low-stock" >{t.quantity}</td>
+              <td className="low-stock" >{t.transaction_date}</td>
             </tr>
           ))}
         </tbody>
