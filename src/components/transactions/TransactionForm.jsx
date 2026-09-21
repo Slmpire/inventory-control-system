@@ -81,7 +81,7 @@ export default function TransactionForm({ onRecorded }) {
         <select value={form.item_id} onChange={(e) => setForm({ ...form, item_id: e.target.value })}>
           <option value="">Select item</option>
           {items.map((i) => (
-            <option key={i.item_id} value={i.item_id}>{i.item_name} ({i.quantity} in stock)</option>
+            <option key={i.item_id} value={i.item_id}>{i.item_name} ({i.quantity} {i.unit} in stock)</option>
           ))}
         </select>
         <input placeholder="Quantity" type="number" value={form.quantity} onChange={(e) => setForm({ ...form, quantity: e.target.value })} />

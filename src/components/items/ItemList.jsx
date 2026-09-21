@@ -38,7 +38,7 @@ export default function ItemList() {
                 <td>{i.item_name}</td>
                 <td>{i.item_code}</td>
                 <td>₦{Number(i.unit_price).toLocaleString()}</td>
-                <td className={i.quantity <= i.reorder_level ? 'low-stock' : ''}>{i.quantity}</td>
+                <td className={i.quantity <= i.reorder_level ? 'low-stock' : ''}>{i.quantity} {i.unit}</td>
                 <td>{i.reorder_level}</td>
               </tr>
             ))}

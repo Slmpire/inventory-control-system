@@ -34,6 +34,7 @@ export default function ItemForm({ onItemAdded }) {
       unit_price: Number(unit_price),
       quantity: Number(quantity),
       reorder_level: Number(reorder_level),
+      unit: form.unit,
     });
 
     setSaving(false);
