@@ -190,3 +190,76 @@ tbody tr:last-child td { border-bottom: none; }
   color: var(--text-secondary);
 }
 .login-demo p { margin: 0 0 4px; }
+
+/* Mobile responsiveness */
+.mobile-topbar {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .layout {
+    flex-direction: column;
+  }
+
+  .mobile-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .mobile-topbar-brand {
+    font-weight: 600;
+    font-size: 15px;
+  }
+
+  .mobile-menu-btn {
+    border: 1px solid var(--border);
+    background: var(--surface);
+    padding: 6px 10px;
+    border-radius: var(--radius-sm);
+  }
+
+  .sidebar {
+    display: none;
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .sidebar.mobile-open {
+    display: flex;
+  }
+
+  .content {
+    padding: 16px;
+  }
+
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Tables scroll horizontally instead of squashing on small screens */
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .login-card {
+    width: 90%;
+    max-width: 320px;
+  }
+}
+
+@media (max-width: 420px) {
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+}
