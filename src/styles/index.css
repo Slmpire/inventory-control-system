@@ -196,6 +196,10 @@ tbody tr:last-child td { border-bottom: none; }
   display: none;
 }
 
+.bottom-nav {
+  display: none;
+}
+
 @media (max-width: 768px) {
   .layout {
     flex-direction: column;
@@ -208,6 +212,9 @@ tbody tr:last-child td { border-bottom: none; }
     padding: 12px 16px;
     background: var(--surface);
     border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 50;
   }
 
   .mobile-topbar-brand {
@@ -216,25 +223,50 @@ tbody tr:last-child td { border-bottom: none; }
   }
 
   .mobile-menu-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border: 1px solid var(--border);
     background: var(--surface);
     padding: 6px 10px;
     border-radius: var(--radius-sm);
+    cursor: pointer;
+  }
+
+  .mobile-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 90;
   }
 
   .sidebar {
     display: none;
-    width: 100%;
-    border-right: none;
-    border-bottom: 1px solid var(--border);
   }
 
   .sidebar.mobile-open {
     display: flex;
+    position: fixed;
+    top: 53px;
+    left: 0;
+    width: 240px;
+    bottom: 0;
+    z-index: 100;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    box-shadow: 4px 0 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .desktop-only {
+    display: none !important;
   }
 
   .content {
     padding: 16px;
+    padding-bottom: 72px; /* room so content isn't hidden behind the bottom bar */
   }
 
   .card-grid {
@@ -256,15 +288,19 @@ tbody tr:last-child td { border-bottom: none; }
     width: 90%;
     max-width: 320px;
   }
-    .bottom-nav {
+
+  .bottom-nav {
     display: flex;
     position: fixed;
-    bottom: 0; left: 0; right: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
     background: var(--surface);
     border-top: 1px solid var(--border);
     padding: 6px 0;
-    z-index: 10;
+    z-index: 40;
   }
+
   .bottom-nav-item {
     flex: 1;
     display: flex;
@@ -276,17 +312,16 @@ tbody tr:last-child td { border-bottom: none; }
     color: var(--text-muted);
     font-size: 10px;
     padding: 4px 0;
+    cursor: pointer;
   }
-  .bottom-nav-item.active { color: var(--accent); }
 
-  .content { padding-bottom: 72px; } /* room so content isn't hidden behind the bar */
+  .bottom-nav-item.active {
+    color: var(--accent);
+  }
 }
-@media (max-width: 768px) {
-  .desktop-only { display: none; }
-}
+
 @media (max-width: 420px) {
   .card-grid {
     grid-template-columns: 1fr;
   }
 }
-.bottom-nav { display: none; }
