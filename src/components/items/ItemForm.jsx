@@ -48,14 +48,16 @@ export default function ItemForm({ onItemAdded }) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input placeholder="Item name" value={form.item_name} onChange={(e) => update('item_name', e.target.value)} />
-      <input placeholder="Item code" value={form.item_code} onChange={(e) => update('item_code', e.target.value)} />
-      <input placeholder="Unit price" type="number" value={form.unit_price} onChange={(e) => update('unit_price', e.target.value)} />
-      <input placeholder="Opening quantity" type="number" value={form.quantity} onChange={(e) => update('quantity', e.target.value)} />
-      <input placeholder="Re-order level" type="number" value={form.reorder_level} onChange={(e) => update('reorder_level', e.target.value)} />
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      <button type="submit" disabled={saving}>{saving ? 'Saving...' : 'Add item'}</button>
+    <form onSubmit={handleSubmit} className="form-card">
+      <div className="form-grid">
+        <input placeholder="Item name" value={form.item_name} onChange={(e) => update('item_name', e.target.value)} />
+        <input placeholder="Item code" value={form.item_code} onChange={(e) => update('item_code', e.target.value)} />
+        <input placeholder="Unit price" type="number" value={form.unit_price} onChange={(e) => update('unit_price', e.target.value)} />
+        <input placeholder="Opening quantity" type="number" value={form.quantity} onChange={(e) => update('quantity', e.target.value)} />
+        <input placeholder="Re-order level" type="number" value={form.reorder_level} onChange={(e) => update('reorder_level', e.target.value)} />
+      </div>
+      {error && <p className="error-text">{error}</p>}
+      <button type="submit" className="btn-primary" disabled={saving}>{saving ? 'Saving...' : 'Add item'}</button>
     </form>
   );
 }
