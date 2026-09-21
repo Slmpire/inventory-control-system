@@ -20,6 +20,7 @@ export default function ItemList() {
   return (
     <div>
       <h2>Stock items</h2>
+      <p className="page-subtitle">Add and review the items your organization stocks.</p>
       <ItemForm onItemAdded={fetchItems} />
 
       {loading ? (
@@ -33,11 +34,11 @@ export default function ItemList() {
           </thead>
           <tbody>
             {items.map((i) => (
-              <tr key={i.item_id} style={{ color: i.quantity <= i.reorder_level ? 'red' : 'inherit' }}>
+              <tr key={i.item_id}>
                 <td>{i.item_name}</td>
                 <td>{i.item_code}</td>
                 <td>₦{Number(i.unit_price).toLocaleString()}</td>
-                <td>{i.quantity}</td>
+                <td className={i.quantity <= i.reorder_level ? 'low-stock' : ''}>{i.quantity}</td>
                 <td>{i.reorder_level}</td>
               </tr>
             ))}
