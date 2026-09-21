@@ -3,7 +3,7 @@ import { supabase } from '../../lib/supabaseClient';
 
 export default function ItemForm({ onItemAdded }) {
   const [form, setForm] = useState({
-    item_name: '', item_code: '', unit_price: '', quantity: '', reorder_level: ''
+    item_name: '', item_code: '', unit_price: '', quantity: '', reorder_level: '', unit: 'pcs'
   });
   const [error, setError] = useState('');
   const [saving, setSaving] = useState(false);
@@ -55,6 +55,16 @@ export default function ItemForm({ onItemAdded }) {
         <input placeholder="Unit price" type="number" value={form.unit_price} onChange={(e) => update('unit_price', e.target.value)} />
         <input placeholder="Opening quantity" type="number" value={form.quantity} onChange={(e) => update('quantity', e.target.value)} />
         <input placeholder="Re-order level" type="number" value={form.reorder_level} onChange={(e) => update('reorder_level', e.target.value)} />
+        <select value={form.unit} onChange={(e) => update('unit', e.target.value)}>
+          <option value="pcs">pcs</option>
+          <option value="kg">kg</option>
+          <option value="g">g</option>
+          <option value="litres">litres</option>
+          <option value="ml">ml</option>
+          <option value="cartons">cartons</option>
+          <option value="bags">bags</option>
+          <option value="pairs">pairs</option>
+        </select>
       </div>
       {error && <p className="error-text">{error}</p>}
       <button type="submit" className="btn-primary" disabled={saving}>{saving ? 'Saving...' : 'Add item'}</button>

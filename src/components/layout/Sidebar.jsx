@@ -13,7 +13,7 @@ export default function Sidebar({ currentPage, onNavigate }) {
   const { user, logout } = useAuth();
 
   return (
-    <div className="sidebar">
+    <>
       <div className="sidebar-brand">StockKeeper</div>
       {NAV_ITEMS.filter((item) => !item.adminOnly || user.role === 'Administrator').map((item) => (
         <button
@@ -29,6 +29,6 @@ export default function Sidebar({ currentPage, onNavigate }) {
         <p className="sidebar-role">{user.role}</p>
         <button onClick={logout} style={{ width: '100%' }}>Sign out</button>
       </div>
-    </div>
+    </>
   );
 }
