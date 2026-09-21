@@ -25,6 +25,7 @@ export default function UserManagement() {
   return (
     <div>
       <h2>User management</h2>
+      <p className="page-subtitle">Create and review staff accounts.</p>
       <UserForm onUserAdded={fetchUsers} />
       <table>
         <thead><tr><th>Username</th><th>Role</th></tr></thead>
