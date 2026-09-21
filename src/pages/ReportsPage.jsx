@@ -2,6 +2,7 @@ import React from 'react';
 import StockBalanceReport from '../components/reports/StockBalanceReport';
 import StockMovementReport from '../components/reports/StockMovementReport';
 import LowStockReport from '../components/reports/LowStockReport';
+import StockValuationReport from '../components/reports/StockValuationReport';
 
 export default function ReportsPage() {
   return (
@@ -11,6 +12,7 @@ export default function ReportsPage() {
       <StockBalanceReport />
       <StockMovementReport />
       <LowStockReport />
+      <StockValuationReport />
     </div>
   );
 }
