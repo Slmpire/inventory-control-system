@@ -21,10 +21,10 @@ export default function StockBalanceReport() {
         <tbody>
           {items.map((i) => (
             <tr key={i.item_id}>
-              <td>{i.item_name}</td>
-              <td>{i.quantity}</td>
-              <td>₦{Number(i.unit_price).toLocaleString()}</td>
-              <td>₦{(i.unit_price * i.quantity).toLocaleString()}</td>
+              <td className="low-stock" >{i.item_name}</td>
+              <td className="low-stock" >{i.quantity}</td>
+              <td className="low-stock" >₦{Number(i.unit_price).toLocaleString()}</td>
+              <td className="low-stock" >₦{(i.unit_price * i.quantity).toLocaleString()}</td>
             </tr>
           ))}
           <tr>
