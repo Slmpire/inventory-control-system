@@ -23,9 +23,7 @@ export default function UserForm({ onUserAdded }) {
     setError('');
 
     const { error: dbError } = await supabase.from('users').insert({
-      username: username.trim(),
-      password,
-      role,
+      username: username.trim(), password, role,
     });
 
     setSaving(false);
@@ -40,15 +38,17 @@ export default function UserForm({ onUserAdded }) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input placeholder="Username" value={form.username} onChange={(e) => setForm({ ...form, username: e.target.value })} />
-      <input placeholder="Password" type="password" value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} />
-      <select value={form.role} onChange={(e) => setForm({ ...form, role: e.target.value })}>
-        <option value="Store Keeper">Store Keeper</option>
-        <option value="Administrator">Administrator</option>
-      </select>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      <button type="submit" disabled={saving}>{saving ? 'Creating...' : 'Create account'}</button>
+    <form onSubmit={handleSubmit} className="form-card">
+      <div className="form-grid">
+        <input placeholder="Username" value={form.username} onChange={(e) => setForm({ ...form, username: e.target.value })} />
+        <input placeholder="Password" type="password" value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} />
+        <select value={form.role} onChange={(e) => setForm({ ...form, role: e.target.value })}>
+          <option value="Store Keeper">Store Keeper</option>
+          <option value="Administrator">Administrator</option>
+        </select>
+      </div>
+      {error && <p className="error-text">{error}</p>}
+      <button type="submit" className="btn-primary" disabled={saving}>{saving ? 'Creating...' : 'Create account'}</button>
     </form>
   );
 }
