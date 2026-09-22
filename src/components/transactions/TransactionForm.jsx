@@ -4,13 +4,15 @@ import { useAuth } from '../../context/AuthContext';
 
 export default function TransactionForm({ onRecorded }) {
   const { user } = useAuth();
+  const isSalesOnly = user.role === 'Sales';
+
   const [items, setItems] = useState([]);
-  const [form, setForm] = useState({ item_id: '', quantity: '', type: 'Purchase' });
+  const [form, setForm] = useState({ item_id: '', quantity: '', type: isSalesOnly ? 'Sale' : 'Purchase' });
   const [error, setError] = useState('');
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
-    supabase.from('stock_items').select('item_id, item_name, quantity').order('item_name')
+    supabase.from('stock_items').select('item_id, item_name, quantity, unit').order('item_name')
       .then(({ data }) => setItems(data || []));
   }, []);
 
@@ -26,7 +28,7 @@ export default function TransactionForm({ onRecorded }) {
     const selectedItem = items.find((i) => i.item_id === Number(item_id));
 
     if (type === 'Sale' && Number(quantity) > selectedItem.quantity) {
-      setError(`Only ${selectedItem.quantity} units of "${selectedItem.item_name}" are in stock. Reduce the quantity.`);
+      setError(`Only ${selectedItem.quantity} ${selectedItem.unit} of "${selectedItem.item_name}" are in stock. Reduce the quantity.`);
       return;
     }
 
@@ -64,8 +66,7 @@ export default function TransactionForm({ onRecorded }) {
 
     setForm({ item_id: '', quantity: '', type: form.type });
 
-    // refresh the local item list so quantities shown in the dropdown stay current
-    const { data } = await supabase.from('stock_items').select('item_id, item_name, quantity').order('item_name');
+    const { data } = await supabase.from('stock_items').select('item_id, item_name, quantity, unit').order('item_name');
     setItems(data || []);
 
     onRecorded();
@@ -74,10 +75,14 @@ export default function TransactionForm({ onRecorded }) {
   return (
     <form onSubmit={handleSubmit} className="form-card">
       <div className="form-grid">
-        <select value={form.type} onChange={(e) => setForm({ ...form, type: e.target.value })}>
-          <option value="Purchase">Purchase (stock in)</option>
-          <option value="Sale">Sale (stock out)</option>
-        </select>
+        {isSalesOnly ? (
+          <input value="Sale (stock out)" disabled />
+        ) : (
+          <select value={form.type} onChange={(e) => setForm({ ...form, type: e.target.value })}>
+            <option value="Purchase">Purchase (stock in)</option>
+            <option value="Sale">Sale (stock out)</option>
+          </select>
+        )}
         <select value={form.item_id} onChange={(e) => setForm({ ...form, item_id: e.target.value })}>
           <option value="">Select item</option>
           {items.map((i) => (
@@ -87,7 +92,7 @@ export default function TransactionForm({ onRecorded }) {
         <input placeholder="Quantity" type="number" value={form.quantity} onChange={(e) => setForm({ ...form, quantity: e.target.value })} />
       </div>
       {error && <p className="error-text">{error}</p>}
-      <button type="submit" className="btn-primary" disabled={saving}>{saving ? 'Saving...' : 'Record transaction'}</button>
+      <button type="submit" className="btn-primary" disabled={saving}>{saving ? 'Saving...' : 'Record sale'}</button>
     </form>
   );
 }
