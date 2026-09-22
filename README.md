@@ -91,6 +91,3 @@ npm run dev
 - Stock valuation uses each item's *current* price, not price-at-time-of-sale
 - Row Level Security is currently set to open access for demo purposes — a production deployment would scope policies by authenticated role
 
-## License
-
-Academic project — Ladoke Akintola University of Technology, Department of Computer Science.
