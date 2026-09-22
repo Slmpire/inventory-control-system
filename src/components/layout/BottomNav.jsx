@@ -3,11 +3,11 @@ import { LayoutDashboard, Package, ArrowLeftRight, FileText, Users } from 'lucid
 import { useAuth } from '../../context/AuthContext';
 
 const TABS = [
-  { id: 'dashboard', label: 'Home', icon: LayoutDashboard },
-  { id: 'items', label: 'Stock', icon: Package },
-  { id: 'transactions', label: 'Purchases', icon: ArrowLeftRight },
-  { id: 'reports', label: 'Reports', icon: FileText },
-  { id: 'users', label: 'Users', icon: Users, adminOnly: true },
+  { id: 'dashboard', label: 'Home', icon: LayoutDashboard, roles: ['Administrator', 'Store Keeper', 'Sales'] },
+  { id: 'items', label: 'Stock', icon: Package, roles: ['Administrator', 'Store Keeper'] },
+  { id: 'transactions', label: 'Sales', icon: ArrowLeftRight, roles: ['Administrator', 'Store Keeper', 'Sales'] },
+  { id: 'reports', label: 'Reports', icon: FileText, roles: ['Administrator', 'Store Keeper', 'Sales'] },
+  { id: 'users', label: 'Users', icon: Users, roles: ['Administrator'] },
 ];
 
 export default function BottomNav({ currentPage, onNavigate }) {
@@ -15,7 +15,7 @@ export default function BottomNav({ currentPage, onNavigate }) {
 
   return (
     <div className="bottom-nav">
-      {TABS.filter((t) => !t.adminOnly || user.role === 'Administrator').map((t) => {
+      {TABS.filter((t) => t.roles.includes(user.role)).map((t) => {
         const Icon = t.icon;
         const active = currentPage === t.id;
         return (
