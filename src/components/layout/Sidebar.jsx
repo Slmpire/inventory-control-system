@@ -2,11 +2,11 @@ import React from 'react';
 import { useAuth } from '../../context/AuthContext';
 
 const NAV_ITEMS = [
-  { id: 'dashboard', label: 'Dashboard' },
-  { id: 'items', label: 'Stock items' },
-  { id: 'transactions', label: 'Purchases & sales' },
-  { id: 'reports', label: 'Reports' },
-  { id: 'users', label: 'User management', adminOnly: true },
+  { id: 'dashboard', label: 'Dashboard', roles: ['Administrator', 'Store Keeper', 'Sales'] },
+  { id: 'items', label: 'Stock items', roles: ['Administrator', 'Store Keeper'] },
+  { id: 'transactions', label: 'Purchases & sales', roles: ['Administrator', 'Store Keeper', 'Sales'] },
+  { id: 'reports', label: 'Reports', roles: ['Administrator', 'Store Keeper', 'Sales'] },
+  { id: 'users', label: 'User management', roles: ['Administrator'] },
 ];
 
 export default function Sidebar({ currentPage, onNavigate }) {
@@ -15,7 +15,7 @@ export default function Sidebar({ currentPage, onNavigate }) {
   return (
     <>
       <div className="sidebar-brand">StockKeeper</div>
-      {NAV_ITEMS.filter((item) => !item.adminOnly || user.role === 'Administrator').map((item) => (
+      {NAV_ITEMS.filter((item) => item.roles.includes(user.role)).map((item) => (
         <button
           key={item.id}
           onClick={() => onNavigate(item.id)}

@@ -45,6 +45,7 @@ export default function UserForm({ onUserAdded }) {
         <select value={form.role} onChange={(e) => setForm({ ...form, role: e.target.value })}>
           <option value="Store Keeper">Store Keeper</option>
           <option value="Administrator">Administrator</option>
+          <option value="Sales">Sales</option>
         </select>
       </div>
       {error && <p className="error-text">{error}</p>}
